@@ -72,7 +72,9 @@ history<-
 
 engines<-
   mutate(engines, replace_Period = apply(history, 2, which.min) - 1) %>%
-  arrange(engine_number)
+  arrange(engine_number) %>%
+  group_by(replace_Period) %>%
+  summarise(Total_replaced = n())
 
 saveRDS(engines,paste0(varSave,"engines_data.rds"))             # Save using saveRDS() for later use
 
